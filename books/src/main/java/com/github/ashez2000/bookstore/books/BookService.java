@@ -23,7 +23,8 @@ public class BookService {
         var book = new Book();
         book.setTitle(dto.title);
         book.setDescription(dto.description);
-        book.setTitle(dto.author);
+        book.setAuthor(dto.author);
+        book.setInventoryCount(10);
 
         return bookRepository.save(book);
     }

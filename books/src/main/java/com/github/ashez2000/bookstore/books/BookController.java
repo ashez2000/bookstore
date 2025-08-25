@@ -1,6 +1,5 @@
 package com.github.ashez2000.bookstore.books;
 
-import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,21 +21,21 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).body(books);
     }
 
-    @GetMapping("/:id")
-    public ResponseEntity<Optional<Book>> getBook(@PathParam("id") Long id) {
+    @GetMapping("{id}")
+    public ResponseEntity<Optional<Book>> getBook(@PathVariable("id") Long id) {
         var book = bookService.getBook(id);
         return ResponseEntity.status(HttpStatus.OK).body(book);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody CreateBookDto data) {
         var book = bookService.createBook(data);
         return ResponseEntity.status(HttpStatus.CREATED).body(book);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> deleteBook(@PathParam("id") Long id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable("id") Long id) {
         bookService.deleteBook(id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(null);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 }
