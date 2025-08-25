@@ -10,9 +10,29 @@ services:
         limits:
           memory: 700m
 
+    depends_on:
+      - postgres
+
     networks:
       - bookstore
+
+  postgres:
+    image: postgres:14-alpine
+    container_name: bookstore-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: bookstore
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    networks:
+      - bookstore
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
 networks:
   bookstore:
     driver: "bridge"
+
+volumes:
+  postgres_data:
