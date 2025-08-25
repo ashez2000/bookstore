@@ -16,6 +16,23 @@ services:
     networks:
       - bookstore
 
+  orders:
+    image: "ashez2000/bootstore/orders"
+    container_name: bookstore-orders
+    ports:
+      - "8081:8080"
+
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+    depends_on:
+      - postgres
+
+    networks:
+      - bookstore
+
   postgres:
     image: postgres:14-alpine
     container_name: bookstore-postgres
