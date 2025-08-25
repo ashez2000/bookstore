@@ -1,0 +1,18 @@
+services:
+  books:
+    image: "ashez2000/bootstore/books"
+    container_name: bookstore-books
+    ports:
+      - "8080:8080"
+
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+    networks:
+      - bookstore
+
+networks:
+  bookstore:
+    driver: "bridge"
