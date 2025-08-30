@@ -1,6 +1,12 @@
+server:
+  port: 8080
+
 spring:
+  application:
+    name: bookstore-books
+
   datasource:
-    url: jdbc:postgresql://postgres:5432/bookstore
+    url: jdbc:postgresql://localhost:5432/bookstore
     username: postgres
     password: password
 
@@ -13,3 +19,10 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8070/eureka
