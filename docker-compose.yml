@@ -12,6 +12,7 @@ services:
 
     depends_on:
       - postgres
+      - discovery
 
     networks:
       - bookstore
@@ -29,6 +30,21 @@ services:
 
     depends_on:
       - postgres
+      - discovery
+
+    networks:
+      - bookstore
+
+  discovery:
+    image: "ashez2000/bootstore/discovery"
+    container_name: bookstore-discovery
+    ports:
+      - "8070:8070"
+
+    deploy:
+      resources:
+        limits:
+          memory: 700m
 
     networks:
       - bookstore

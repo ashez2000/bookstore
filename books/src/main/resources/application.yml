@@ -6,7 +6,7 @@ spring:
     name: bookstore-books
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/bookstore
+    url: jdbc:postgresql://postgres:5432/bookstore
     username: postgres
     password: password
 
@@ -22,7 +22,7 @@ spring:
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: discovery
   client:
     service-url:
-      defaultZone: http://localhost:8070/eureka
+      defaultZone: http://discovery:8070/eureka
