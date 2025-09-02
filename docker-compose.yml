@@ -35,6 +35,24 @@ services:
     networks:
       - bookstore
 
+  payments:
+    image: "ashez2000/bootstore/payments"
+    container_name: bookstore-payments
+    ports:
+      - "8082:8082"
+
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+    depends_on:
+      - postgres
+      - discovery
+
+    networks:
+      - bookstore
+
   discovery:
     image: "ashez2000/bootstore/discovery"
     container_name: bookstore-discovery
