@@ -1,6 +1,6 @@
 services:
   books:
-    image: "ashez2000/bootstore/books"
+    image: "ashez2000/bookstore/books"
     container_name: bookstore-books
     ports:
       - "8080:8080"
@@ -18,10 +18,10 @@ services:
       - bookstore
 
   orders:
-    image: "ashez2000/bootstore/orders"
+    image: "ashez2000/bookstore/orders"
     container_name: bookstore-orders
     ports:
-      - "8081:8080"
+      - "8081:8081"
 
     deploy:
       resources:
@@ -35,26 +35,26 @@ services:
     networks:
       - bookstore
 
-  payments:
-    image: "ashez2000/bootstore/payments"
-    container_name: bookstore-payments
-    ports:
-      - "8082:8082"
-
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-
-    depends_on:
-      - postgres
-      - discovery
-
-    networks:
-      - bookstore
+#  payments:
+#    image: "ashez2000/bootstore/payments"
+#    container_name: bookstore-payments
+#    ports:
+#      - "8082:8082"
+#
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 700m
+#
+#    depends_on:
+#      - postgres
+#      - discovery
+#
+#    networks:
+#      - bookstore
 
   discovery:
-    image: "ashez2000/bootstore/discovery"
+    image: "ashez2000/bookstore/discovery"
     container_name: bookstore-discovery
     ports:
       - "8070:8070"

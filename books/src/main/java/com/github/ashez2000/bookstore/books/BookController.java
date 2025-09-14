@@ -23,8 +23,8 @@ public class BookController {
 
     @GetMapping("{id}")
     public ResponseEntity<BookDto> getBook(@PathVariable("id") Long id) {
-        var book = bookService.getBook(id);
-        return book.map(value -> ResponseEntity.status(HttpStatus.OK).body(BookMapper.toBookDto(value))).orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null));
+        var book = bookService.getBook(id).get();
+        return ResponseEntity.status(HttpStatus.OK).body(BookMapper.toBookDto(book));
     }
 
     @PostMapping

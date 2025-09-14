@@ -2,6 +2,7 @@ package com.github.ashez2000.bookstore.orders;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(path = "/api/orders", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
 public class OrderController {
     private OrderService orderService;
