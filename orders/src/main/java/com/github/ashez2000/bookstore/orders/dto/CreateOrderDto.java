@@ -1,4 +1,4 @@
-package com.github.ashez2000.bookstore.orders;
+package com.github.ashez2000.bookstore.orders.dto;
 
 public class CreateOrderDto {
     public Long productId;
