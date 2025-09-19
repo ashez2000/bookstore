@@ -13,8 +13,12 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @PostMapping
-    ResponseEntity<Payment> createOrder(@RequestBody CreatePaymentDto data) {
+    ResponseEntity<Payment> createPayment(@RequestBody CreatePaymentDto data) {
         var payment = paymentService.createPayment(data);
-        return ResponseEntity.status(HttpStatus.CREATED).body(payment);
+        if (payment.getStatus().equals("Success")) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(payment);
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(payment);
     }
 }

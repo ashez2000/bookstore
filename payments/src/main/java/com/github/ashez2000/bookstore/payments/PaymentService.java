@@ -12,7 +12,14 @@ public class PaymentService {
         var payment = new Payment();
         payment.setOrderId(data.orderId);
         payment.setPaymentMethod(data.paymentMethod);
-        payment.setStatus(data.status);
+        payment.setOrderId(data.orderId);
+        payment.setPaymentMethod(data.paymentMethod);
+
+        if (data.pin.equals("2222-2222-2222-2222")) {
+            payment.setStatus("Success");
+        } else {
+            payment.setStatus("Failure");
+        }
 
         payment = paymentRepository.save(payment);
         return payment;
