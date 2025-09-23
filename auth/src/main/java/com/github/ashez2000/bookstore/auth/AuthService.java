@@ -13,6 +13,7 @@ public class AuthService {
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(/*strength*/ 10);
 
     private UserRepository userRepository;
+    private JwtUtil jwtUtil;
 
     public AuthResponse register(RegisterDto data) {
         String hash = hashPassword(data.getPassword());
@@ -24,8 +25,11 @@ public class AuthService {
 
         u = userRepository.save(u);
 
-        // TODO: Generate JWT Token
-        String token = "jwt_token";
+        String token = jwtUtil.generateToken(new JwtUtil.JwtPayload(
+                u.getId(),
+                u.getEmail(),
+                u.getRole()
+        ));
 
         return new AuthResponse(
                 new UserDto(u.getId(), u.getEmail(), u.getRole()),
@@ -43,8 +47,11 @@ public class AuthService {
             throw new Exception("Invalid Credentials");
         }
 
-        // TODO: Generate JWT Token
-        String token = "jwt_token";
+        String token = jwtUtil.generateToken(new JwtUtil.JwtPayload(
+                u.getId(),
+                u.getEmail(),
+                u.getRole()
+        ));
 
         return new AuthResponse(
                 new UserDto(u.getId(), u.getEmail(), u.getRole()),

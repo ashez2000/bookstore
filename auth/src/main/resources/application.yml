@@ -1,6 +1,10 @@
 server:
   port: 8083
 
+app:
+  jwt:
+    secret: my-very-secret-key-my-very-secret-key-123456
+
 spring:
   application:
     name: auth
