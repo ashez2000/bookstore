@@ -59,6 +59,15 @@ public class AuthService {
         );
     }
 
+    public UserDto getUserProfile(Long id) throws Exception {
+        User u = userRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
+        return new UserDto(
+                u.getId(),
+                u.getEmail(),
+                u.getRole()
+        );
+    }
+
     private String hashPassword(String password) {
         return encoder.encode(password);
     }
