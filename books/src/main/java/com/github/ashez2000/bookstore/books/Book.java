@@ -19,5 +19,8 @@ public class Book {
     private String description;
     private String author;
 
-    private Integer inventoryCount;
+    private Integer stock;
+
+    @Version
+    private Long version;
 }

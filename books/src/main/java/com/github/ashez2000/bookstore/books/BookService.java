@@ -1,5 +1,6 @@
 package com.github.ashez2000.bookstore.books;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +25,25 @@ public class BookService {
         book.setTitle(dto.title);
         book.setDescription(dto.description);
         book.setAuthor(dto.author);
-        book.setInventoryCount(10);
+        book.setStock(10);
 
         return bookRepository.save(book);
     }
 
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void reserve(Long bookId, Integer quantity) throws Exception {
+        var book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new Exception("Book not found"));
+
+        if (book.getStock() < quantity) {
+            throw new Exception("Not enough stock available");
+        }
+
+        book.setStock(book.getStock() - quantity);
+        bookRepository.save(book);
     }
 }

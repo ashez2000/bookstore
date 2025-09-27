@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/books", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -31,6 +30,12 @@ public class BookController {
     public ResponseEntity<Book> createBook(@RequestBody CreateBookDto data) {
         var book = bookService.createBook(data);
         return ResponseEntity.status(HttpStatus.CREATED).body(book);
+    }
+
+    @PostMapping("/{bookId}/reserve/{quantity}")
+    public ResponseEntity<Void> reserve(@PathVariable Long bookId, @PathVariable Integer quantity) throws Exception {
+        bookService.reserve(bookId, quantity);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("{id}")
