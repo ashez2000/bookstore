@@ -1,5 +1,7 @@
 package com.github.ashez2000.bookstore.books;
 
+import com.github.ashez2000.bookstore.books.dto.BookDto;
+import com.github.ashez2000.bookstore.books.dto.CreateBookDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

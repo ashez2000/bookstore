@@ -1,4 +1,4 @@
-package com.github.ashez2000.bookstore.books;
+package com.github.ashez2000.bookstore.books.dto;
 
 public class CreateBookDto {
     public String title;

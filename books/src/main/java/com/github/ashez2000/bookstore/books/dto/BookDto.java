@@ -1,4 +1,4 @@
-package com.github.ashez2000.bookstore.books;
+package com.github.ashez2000.bookstore.books.dto;
 
 import lombok.Data;
 
@@ -8,5 +8,5 @@ public class BookDto {
     private String title;
     private String description;
     private String author;
-    private Integer inventoryCount;
+    private Integer stock;
 }
