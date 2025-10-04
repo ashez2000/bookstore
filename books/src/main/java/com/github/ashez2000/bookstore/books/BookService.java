@@ -23,9 +23,9 @@ public class BookService {
 
     public Book createBook(CreateBookDto dto) {
         var book = new Book();
-        book.setTitle(dto.title);
-        book.setDescription(dto.description);
-        book.setAuthor(dto.author);
+        book.setTitle(dto.getTitle());
+        book.setDescription(dto.getDescription());
+        book.setAuthor(dto.getAuthor());
         book.setStock(10);
 
         return bookRepository.save(book);

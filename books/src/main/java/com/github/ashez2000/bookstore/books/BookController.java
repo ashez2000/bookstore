@@ -2,6 +2,7 @@ package com.github.ashez2000.bookstore.books;
 
 import com.github.ashez2000.bookstore.books.dto.BookDto;
 import com.github.ashez2000.bookstore.books.dto.CreateBookDto;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,7 +30,7 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody CreateBookDto data) {
+    public ResponseEntity<Book> createBook(@Valid @RequestBody CreateBookDto data) {
         var book = bookService.createBook(data);
         return ResponseEntity.status(HttpStatus.CREATED).body(book);
     }
