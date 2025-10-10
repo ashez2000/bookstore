@@ -5,6 +5,14 @@ spring:
   application:
     name: books
 
+  config:
+    import:
+      - application_prod.yml
+
+  profiles:
+    active:
+      - prod
+
   datasource:
     uri: jdbc:h2:mem:books_db
     driverClassName: org.h2.Driver
@@ -26,3 +34,5 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8070/eureka
+
+foobar: development

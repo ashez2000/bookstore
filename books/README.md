@@ -16,3 +16,8 @@ Books catalog and metadata service
 ```bash
 mvn compile jib:dockerBuild
 ```
+
+### TODOS
+
+- Separate inventory logic (tables & endpoints)
+

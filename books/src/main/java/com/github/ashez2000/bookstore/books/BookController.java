@@ -3,7 +3,8 @@ package com.github.ashez2000.bookstore.books;
 import com.github.ashez2000.bookstore.books.dto.BookDto;
 import com.github.ashez2000.bookstore.books.dto.CreateBookDto;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +14,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/books", produces = {MediaType.APPLICATION_JSON_VALUE})
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BookController {
-    private BookService bookService;
+    @Value("${foobar}")
+    private String foobar;
+
+    private final BookService bookService;
 
     @GetMapping
     public ResponseEntity<List<Book>> getBooks() {
+        System.out.println(foobar);
         var books = bookService.getBooks();
         return ResponseEntity.status(HttpStatus.OK).body(books);
     }
