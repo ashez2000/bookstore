@@ -1,6 +1,7 @@
 package com.github.ashez2000.bookstore.books;
 
 import com.github.ashez2000.bookstore.books.dto.CreateBookDto;
+import com.github.ashez2000.bookstore.books.entity.Book;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

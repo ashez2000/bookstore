@@ -2,6 +2,7 @@ package com.github.ashez2000.bookstore.books;
 
 import com.github.ashez2000.bookstore.books.dto.BookDto;
 import com.github.ashez2000.bookstore.books.dto.CreateBookDto;
+import com.github.ashez2000.bookstore.books.entity.Book;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

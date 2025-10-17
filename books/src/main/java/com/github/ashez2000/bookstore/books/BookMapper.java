@@ -1,6 +1,7 @@
 package com.github.ashez2000.bookstore.books;
 
 import com.github.ashez2000.bookstore.books.dto.BookDto;
+import com.github.ashez2000.bookstore.books.entity.Book;
 
 public class BookMapper {
     public static BookDto toBookDto(Book b) {
