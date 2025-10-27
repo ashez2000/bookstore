@@ -5,7 +5,6 @@ import com.github.ashez2000.bookstore.books.dto.CreateBookDto;
 import com.github.ashez2000.bookstore.books.entity.Book;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +16,11 @@ import java.util.List;
 @RequestMapping(path = "/api/books", produces = {MediaType.APPLICATION_JSON_VALUE})
 @RequiredArgsConstructor
 public class BookController {
-    @Value("${foobar}")
-    private String foobar;
 
     private final BookService bookService;
 
     @GetMapping
     public ResponseEntity<List<Book>> getBooks() {
-        System.out.println(foobar);
         var books = bookService.getBooks();
         return ResponseEntity.status(HttpStatus.OK).body(books);
     }
@@ -36,9 +32,9 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@Valid @RequestBody CreateBookDto data) {
+    public ResponseEntity<BookDto> createBook(@Valid @RequestBody CreateBookDto data) {
         var book = bookService.createBook(data);
-        return ResponseEntity.status(HttpStatus.CREATED).body(book);
+        return ResponseEntity.status(HttpStatus.CREATED).body(BookMapper.toBookDto(book));
     }
 
     @PostMapping("/{bookId}/reserve/{quantity}")
