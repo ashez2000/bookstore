@@ -27,7 +27,6 @@ public class BookService {
         book.setTitle(dto.getTitle());
         book.setDescription(dto.getDescription());
         book.setAuthor(dto.getAuthor());
-        book.setStock(10);
 
         return bookRepository.save(book);
     }
@@ -40,12 +39,12 @@ public class BookService {
     public void reserve(Long bookId, Integer quantity) throws Exception {
         var book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new Exception("Book not found"));
-
-        if (book.getStock() < quantity) {
-            throw new Exception("Not enough stock available");
-        }
-
-        book.setStock(book.getStock() - quantity);
+//
+//        if (book.getStock() < quantity) {
+//            throw new Exception("Not enough stock available");
+//        }
+//
+//        book.setStock(book.getStock() - quantity);
         bookRepository.save(book);
     }
 }

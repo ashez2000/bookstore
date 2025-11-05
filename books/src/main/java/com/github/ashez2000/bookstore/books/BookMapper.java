@@ -10,7 +10,6 @@ public class BookMapper {
         d.setTitle(b.getTitle());
         d.setDescription(b.getDescription());
         d.setAuthor(b.getAuthor());
-        d.setStock(b.getStock());
         return d;
     }
 }
