@@ -1,4 +1,6 @@
 services:
+
+  # Books Service
   books:
     image: "ashez2000/bookstore/books"
     container_name: bookstore-books
@@ -8,51 +10,15 @@ services:
     deploy:
       resources:
         limits:
-          memory: 700m
+          memory: 512m
 
     depends_on:
-      - postgres
       - discovery
 
     networks:
       - bookstore
 
-  orders:
-    image: "ashez2000/bookstore/orders"
-    container_name: bookstore-orders
-    ports:
-      - "8081:8081"
-
-    deploy:
-      resources:
-        limits:
-          memory: 700m
-
-    depends_on:
-      - postgres
-      - discovery
-
-    networks:
-      - bookstore
-
-#  payments:
-#    image: "ashez2000/bootstore/payments"
-#    container_name: bookstore-payments
-#    ports:
-#      - "8082:8082"
-#
-#    deploy:
-#      resources:
-#        limits:
-#          memory: 700m
-#
-#    depends_on:
-#      - postgres
-#      - discovery
-#
-#    networks:
-#      - bookstore
-
+  # Discovery Service
   discovery:
     image: "ashez2000/bookstore/discovery"
     container_name: bookstore-discovery
@@ -62,28 +28,11 @@ services:
     deploy:
       resources:
         limits:
-          memory: 700m
+          memory: 512m
 
     networks:
       - bookstore
-
-  postgres:
-    image: postgres:14-alpine
-    container_name: bookstore-postgres
-    restart: always
-    environment:
-      POSTGRES_DB: bookstore
-      POSTGRES_PASSWORD: password
-    ports:
-      - "5432:5432"
-    networks:
-      - bookstore
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
 
 networks:
   bookstore:
     driver: "bridge"
-
-volumes:
-  postgres_data:
