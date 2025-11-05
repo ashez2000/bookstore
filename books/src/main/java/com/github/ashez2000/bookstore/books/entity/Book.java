@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "books")
 @NoArgsConstructor
@@ -15,12 +17,20 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
     private String author;
 
-    private Integer stock;
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 
-    @Version
-    private Long version;
+    @PrePersist
+    private void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
 }
