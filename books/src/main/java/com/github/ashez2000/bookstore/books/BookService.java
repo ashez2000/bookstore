@@ -49,16 +49,4 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    @Transactional
-    public void reserve(Long bookId, Integer quantity) throws Exception {
-        var book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new Exception("Book not found"));
-//
-//        if (book.getStock() < quantity) {
-//            throw new Exception("Not enough stock available");
-//        }
-//
-//        book.setStock(book.getStock() - quantity);
-        bookRepository.save(book);
-    }
 }

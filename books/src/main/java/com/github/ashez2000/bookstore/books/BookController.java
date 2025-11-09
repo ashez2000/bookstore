@@ -3,6 +3,7 @@ package com.github.ashez2000.bookstore.books;
 import com.github.ashez2000.bookstore.books.dto.BookDto;
 import com.github.ashez2000.bookstore.books.dto.CreateBookDto;
 import com.github.ashez2000.bookstore.books.entity.Book;
+import com.github.ashez2000.bookstore.books.exception.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,11 @@ public class BookController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<BookDto> getBook(@PathVariable("id") Long id) {
-        var book = bookService.getBook(id).get();
+    public ResponseEntity<BookDto> getBook(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        var book = bookService.getBook(id).orElseThrow(
+                () -> new ResourceNotFoundException("Book", "id", Long.toString(id))
+        );
+
         return ResponseEntity.status(HttpStatus.OK).body(BookMapper.toBookDto(book));
     }
 
@@ -35,12 +39,6 @@ public class BookController {
     public ResponseEntity<BookDto> createBook(@Valid @RequestBody CreateBookDto data) {
         var book = bookService.createBook(data);
         return ResponseEntity.status(HttpStatus.CREATED).body(BookMapper.toBookDto(book));
-    }
-
-    @PostMapping("/{bookId}/reserve/{quantity}")
-    public ResponseEntity<Void> reserve(@PathVariable Long bookId, @PathVariable Integer quantity) throws Exception {
-        bookService.reserve(bookId, quantity);
-        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("{id}")
