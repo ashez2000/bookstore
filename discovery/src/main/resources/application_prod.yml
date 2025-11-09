@@ -1,14 +1,11 @@
-server:
-  port: 8070
-
 spring:
   config:
-    import:
-      - application_prod.yml
+    activate:
+      on-profile: prod
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: bookstore
   client:
     registerWithEureka: false
     fetchRegistry: false

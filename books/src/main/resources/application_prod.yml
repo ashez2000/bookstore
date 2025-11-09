@@ -3,4 +3,9 @@ spring:
     activate:
       on-profile: prod
 
-foobar: production
+eureka:
+  instance:
+    hostname: bookstore
+  client:
+    service-url:
+      defaultZone: http://bookstore:8070/eureka
