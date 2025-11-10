@@ -5,7 +5,9 @@ spring:
 
 eureka:
   instance:
-    hostname: bookstore
+    preferIpAddress: true
   client:
-    service-url:
-      defaultZone: http://bookstore:8070/eureka
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://discovery:8070/eureka
