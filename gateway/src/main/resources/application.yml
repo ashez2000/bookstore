@@ -4,31 +4,21 @@ server:
 spring:
   application:
     name: gateway
+
   cloud:
     gateway:
       server:
         webflux:
           discovery:
             locator:
-              enabled: true
+              enabled: true # false will diable the default routes ex: /BOOKS/api/books
               lowerCaseServiceId: true
-          routes:
-            - id: books
-              uri: lb:http://BOOKS
-              predicates:
-                - Path=/api/books/**
-            - id: orders
-              uri: lb:http://ORDERS
-              predicates:
-                - Path=/api/orders/**
-            - id: payments
-              uri: lb:http://payments
-              predicates:
-                - Path=/api/payments/**
 
 eureka:
   instance:
-    hostname: localhost
+    preferIpAddress: true
   client:
-    service-url:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
       defaultZone: http://localhost:8070/eureka
