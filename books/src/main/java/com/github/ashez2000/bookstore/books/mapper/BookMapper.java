@@ -1,4 +1,4 @@
-package com.github.ashez2000.bookstore.books;
+package com.github.ashez2000.bookstore.books.mapper;
 
 import com.github.ashez2000.bookstore.books.dto.BookDto;
 import com.github.ashez2000.bookstore.books.entity.Book;

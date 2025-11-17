@@ -1,9 +1,11 @@
-package com.github.ashez2000.bookstore.books;
+package com.github.ashez2000.bookstore.books.controller;
 
 import com.github.ashez2000.bookstore.books.dto.BookDto;
 import com.github.ashez2000.bookstore.books.dto.CreateBookDto;
 import com.github.ashez2000.bookstore.books.entity.Book;
 import com.github.ashez2000.bookstore.books.exception.ResourceNotFoundException;
+import com.github.ashez2000.bookstore.books.mapper.BookMapper;
+import com.github.ashez2000.bookstore.books.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
