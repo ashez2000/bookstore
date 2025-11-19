@@ -3,10 +3,13 @@ package com.github.ashez2000.bookstore.books.service;
 import com.github.ashez2000.bookstore.books.dto.CreateBookDto;
 import com.github.ashez2000.bookstore.books.entity.Book;
 import com.github.ashez2000.bookstore.books.entity.Inventory;
+import com.github.ashez2000.bookstore.books.exception.ApiException;
+import com.github.ashez2000.bookstore.books.exception.ResourceNotFoundException;
 import com.github.ashez2000.bookstore.books.repository.BookRepository;
 import com.github.ashez2000.bookstore.books.repository.InventoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,6 +46,26 @@ public class BookService {
         inventoryRepository.save(inventory);
 
         return book;
+    }
+
+    public void reserve(long bookId, int quantity) {
+        var inventory = inventoryRepository.findById(bookId).orElseThrow(() ->
+                new ResourceNotFoundException("Inventory", "bookId", Long.toString(bookId)));
+
+        if (inventory.getStock() < quantity) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Insufficient stock for bookId: " + bookId);
+        }
+
+        inventory.setStock(inventory.getStock() - quantity);
+        inventoryRepository.save(inventory);
+    }
+
+
+    public void release(long bookId, int quantity) {
+        var inventory = inventoryRepository.findById(bookId).orElseThrow(() ->
+                new ResourceNotFoundException("Inventory", "bookId", Long.toString(bookId)));
+        inventory.setStock(inventory.getStock() + quantity);
+        inventoryRepository.save(inventory);
     }
 
     public void deleteBook(Long id) {

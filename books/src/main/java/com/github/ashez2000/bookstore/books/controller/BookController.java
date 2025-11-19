@@ -2,6 +2,7 @@ package com.github.ashez2000.bookstore.books.controller;
 
 import com.github.ashez2000.bookstore.books.dto.BookDto;
 import com.github.ashez2000.bookstore.books.dto.CreateBookDto;
+import com.github.ashez2000.bookstore.books.dto.QuantityDto;
 import com.github.ashez2000.bookstore.books.entity.Book;
 import com.github.ashez2000.bookstore.books.exception.ResourceNotFoundException;
 import com.github.ashez2000.bookstore.books.mapper.BookMapper;
@@ -47,5 +48,17 @@ public class BookController {
     public ResponseEntity<Void> deleteBook(@PathVariable("id") Long id) {
         bookService.deleteBook(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @PostMapping("{id}/reserve")
+    public ResponseEntity<String> reserve(@PathVariable("id") Long id, @RequestBody QuantityDto body) {
+        bookService.reserve(id, body.getQuantity());
+        return ResponseEntity.status(HttpStatus.OK).body("Reserved");
+    }
+
+    @PostMapping("{id}/release")
+    public ResponseEntity<String> release(@PathVariable("id") Long id, @RequestBody QuantityDto body) {
+        bookService.release(id, body.getQuantity());
+        return ResponseEntity.status(HttpStatus.OK).body("Released");
     }
 }
