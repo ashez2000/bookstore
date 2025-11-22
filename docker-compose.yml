@@ -20,6 +20,26 @@ services:
     networks:
       - bookstore
 
+  # Orders Service
+  orders:
+    image: "ashez2000/bookstore/orders"
+    container_name: bookstore-orders
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
+    depends_on:
+      - discovery
+
+    networks:
+      - bookstore
+
   # Discovery Service
   discovery:
     image: "ashez2000/bookstore/discovery"
