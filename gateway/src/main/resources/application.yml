@@ -14,6 +14,10 @@ spring:
               enabled: true # false will diable the default routes ex: /BOOKS/api/books
               lowerCaseServiceId: true
 
+          httpClient:
+            connect-timeout: 1000
+            response-timeout: 5s
+
 eureka:
   instance:
     preferIpAddress: true
