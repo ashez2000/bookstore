@@ -18,7 +18,10 @@ public class GatewayApplication {
         return routeLocatorBuilder.routes()
                 .route(p -> p
                         .path("/api/books/**")
-                        .uri("lb://BOOKS")
+                        .uri("lb://BOOKS"))
+                .route(p -> p
+                        .path("/api/orders/**")
+                        .uri("lb://ORDERS")
                 ).build();
     }
 }
