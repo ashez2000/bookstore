@@ -1,6 +1,7 @@
 package com.github.ashez2000.bookstore.orders;
 
 import com.github.ashez2000.bookstore.orders.dto.CreateOrderDto;
+import com.github.ashez2000.bookstore.orders.dto.QuantityDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,16 +23,12 @@ public class OrderService {
     }
 
     public Order createOrder(CreateOrderDto dto) {
-        var product = bookFeignClient.getBook(dto.productId);
-        System.out.println("PRODUCT: " + product.getBody());
-        if (product == null) {
-            return null;
-        }
+        bookFeignClient.reserve(dto.getBookId(), new QuantityDto(dto.getQuantity()));
 
         var order = new Order();
-        order.setProductId(dto.productId);
-        order.setQuantity(dto.quantity);
-        order.setTotalAmount(dto.totalAmount);
+        order.setBookId(dto.getBookId());
+        order.setQuantity(dto.getQuantity());
+        order.setTotalAmount(dto.getTotalAmount());
         order.setStatus("CREATED");
 
         return orderRepository.save(order);

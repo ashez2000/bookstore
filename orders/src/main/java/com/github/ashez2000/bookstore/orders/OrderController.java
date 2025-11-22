@@ -30,14 +30,7 @@ public class OrderController {
 
     @PostMapping
     ResponseEntity<Order> createOrder(@RequestBody CreateOrderDto data) {
-        // TODO: Check books stock
-        // TODO: Reserve books
-
-        // Create Order
         var order = orderService.createOrder(data);
-
-        // TODO: Send OrderCreatedEvent
-
         return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
 }
