@@ -52,13 +52,13 @@ public class BookController {
 
     @PostMapping("{id}/reserve")
     public ResponseEntity<String> reserve(@PathVariable("id") Long id, @RequestBody QuantityDto body) {
-        bookService.reserve(id, body.getQuantity());
+        bookService.updateStock(id, body.getQuantity(), "reserve");
         return ResponseEntity.status(HttpStatus.OK).body("Reserved");
     }
 
     @PostMapping("{id}/release")
     public ResponseEntity<String> release(@PathVariable("id") Long id, @RequestBody QuantityDto body) {
-        bookService.release(id, body.getQuantity());
+        bookService.updateStock(id, body.getQuantity(), "release");
         return ResponseEntity.status(HttpStatus.OK).body("Released");
     }
 }

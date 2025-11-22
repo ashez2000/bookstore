@@ -10,14 +10,10 @@ Books catalog and metadata service
 - PUT /api/books/{id}
 - DELETE /api/books/{id}
 - POST /api/books/{id}/reserve
+- POST /api/books/{id}/release
 
 ### Build Docker Image
 
 ```bash
 mvn compile jib:dockerBuild
 ```
-
-### TODOS
-
-- Separate inventory logic (tables & endpoints)
-

@@ -10,6 +10,7 @@ import com.github.ashez2000.bookstore.books.repository.InventoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,6 +49,27 @@ public class BookService {
         return book;
     }
 
+    public void updateStock(long bookId, int quantity, String type) {
+        int maxRetries = 3;
+        int attempt = 0;
+
+        while (attempt < maxRetries) {
+            try {
+                if (type.equals("reserve")) {
+                    reserve(bookId, quantity);
+                } else {
+                    release(bookId, quantity);
+                }
+
+                return;
+            } catch (ObjectOptimisticLockingFailureException e) {
+                attempt++;
+                if (attempt == maxRetries) throw e;
+            }
+        }
+    }
+
+    @Transactional
     public void reserve(long bookId, int quantity) {
         var inventory = inventoryRepository.findById(bookId).orElseThrow(() ->
                 new ResourceNotFoundException("Inventory", "bookId", Long.toString(bookId)));
@@ -61,6 +83,7 @@ public class BookService {
     }
 
 
+    @Transactional
     public void release(long bookId, int quantity) {
         var inventory = inventoryRepository.findById(bookId).orElseThrow(() ->
                 new ResourceNotFoundException("Inventory", "bookId", Long.toString(bookId)));
