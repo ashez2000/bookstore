@@ -6,22 +6,19 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class PaymentService {
-    private PaymentRepository paymentRepository;
 
-    public Payment createPayment(CreatePaymentDto data) {
-        var payment = new Payment();
-        payment.setOrderId(data.orderId);
-        payment.setPaymentMethod(data.paymentMethod);
-        payment.setOrderId(data.orderId);
-        payment.setPaymentMethod(data.paymentMethod);
+    private final PaymentRepository paymentRepository;
 
-        if (data.pin.equals("2222-2222-2222-2222")) {
-            payment.setStatus("Success");
-        } else {
-            payment.setStatus("Failure");
+    public String createPayment(CreatePaymentDto data) {
+        if (!data.pin.equals("2222-2222-2222-2222")) {
+            return "Payment Failed";
         }
 
-        payment = paymentRepository.save(payment);
-        return payment;
+        var payment = new Payment();
+        payment.setOrderId(data.orderId);
+        paymentRepository.save(payment);
+
+        return "Payment Success";
     }
+
 }

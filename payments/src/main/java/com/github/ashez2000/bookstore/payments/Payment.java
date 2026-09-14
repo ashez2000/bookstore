@@ -15,7 +15,6 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private Long orderId;
-    private String paymentMethod;
-    private String status;
 }

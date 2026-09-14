@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 public class PaymentController {
+
     private PaymentService paymentService;
 
     @PostMapping
-    ResponseEntity<Payment> createPayment(@RequestBody CreatePaymentDto data) {
-        var payment = paymentService.createPayment(data);
-        if (payment.getStatus().equals("Success")) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(payment);
+    ResponseEntity<String> createPayment(@RequestBody CreatePaymentDto data) {
+        var status = paymentService.createPayment(data);
+        if (status.equals("Payment Failed")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(status);
         }
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(payment);
+        return ResponseEntity.status(HttpStatus.CREATED).body(status);
     }
+
 }
