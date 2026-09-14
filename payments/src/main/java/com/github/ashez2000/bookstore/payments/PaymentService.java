@@ -21,4 +21,8 @@ public class PaymentService {
         return "Payment Success";
     }
 
+    public String getStatus(long orderId) {
+        return paymentRepository.findByOrderId(orderId).isPresent() ? "Ok" : "Failed";
+    }
+
 }
