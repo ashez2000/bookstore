@@ -69,4 +69,12 @@ public class ReservationService {
         reservationRepository.save(reservation);
     }
 
+    @Transactional
+    public void confirmReservation(Long orderId) {
+        reservationRepository.findByOrderId(orderId).ifPresent(reservation -> {
+            reservation.confirm();
+            reservationRepository.save(reservation);
+        });
+    }
+
 }

@@ -7,6 +7,7 @@ import com.github.ashez2000.bookstore.books.entity.Book;
 import com.github.ashez2000.bookstore.books.exception.ResourceNotFoundException;
 import com.github.ashez2000.bookstore.books.mapper.BookMapper;
 import com.github.ashez2000.bookstore.books.service.BookService;
+import com.github.ashez2000.bookstore.books.service.ReservationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
+    private final ReservationService reservationService;
 
     @GetMapping
     public ResponseEntity<List<Book>> getBooks() {
@@ -50,15 +52,10 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
-    @PostMapping("{id}/reserve")
-    public ResponseEntity<String> reserve(@PathVariable("id") Long id, @RequestBody QuantityDto body) {
-        bookService.updateStock(id, body.getQuantity(), "reserve");
-        return ResponseEntity.status(HttpStatus.OK).body("Reserved");
+    @PostMapping("/{bookId}/reserve")
+    public ResponseEntity<Void> reserve(@PathVariable Long bookId, @RequestParam Long orderId) {
+        reservationService.reserveBook(orderId, bookId);
+        return ResponseEntity.ok().build();
     }
 
-    @PostMapping("{id}/release")
-    public ResponseEntity<String> release(@PathVariable("id") Long id, @RequestBody QuantityDto body) {
-        bookService.updateStock(id, body.getQuantity(), "release");
-        return ResponseEntity.status(HttpStatus.OK).body("Released");
-    }
 }
