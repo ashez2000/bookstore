@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 // TODO: Improve the schema
 @Entity
-@Table(name = "reservations", uniqueConstraints = @UniqueConstraint(columnNames = { "order_id" }))
+@Table(name = "reservations", uniqueConstraints = @UniqueConstraint(columnNames = {"order_id"}))
 @NoArgsConstructor
 @Getter
 @Setter
@@ -22,6 +22,9 @@ public class Reservation {
     @Column(name = "order_id", nullable = false)
     private Long orderId;
 
+    @Column(name = "book_id", nullable = false)
+    private Long bookId;
+
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
 
@@ -33,6 +36,11 @@ public class Reservation {
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    public Reservation(Long orderId, Long bookId) {
+        this.orderId = orderId;
+        this.bookId = bookId;
+    }
 
     @PrePersist
     void onCreate() {
