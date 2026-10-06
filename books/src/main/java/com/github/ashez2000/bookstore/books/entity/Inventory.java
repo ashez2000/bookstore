@@ -11,13 +11,22 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Inventory {
-    @Column(nullable = false)
+
     @Id
-    private Long productId;
+    private Long bookId;
 
     @Column(nullable = false)
     private Integer stock;
 
-    @Version
-    private Long version;
+    public void decrementStock() {
+        if (this.stock <= 0) {
+            throw new IllegalStateException("Book is out of stock");
+        }
+        this.stock--;
+    }
+
+    public void incrementStock() {
+        this.stock++;
+    }
+
 }
